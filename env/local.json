@@ -1,0 +1,6 @@
+{
+    "zhookeeper": "localhost:2181",
+    "brokerUrl": "localhost:9092",
+    "topic": "testTopic",
+    "groupId": "testGroup"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "loggerservice",
+  "version": "1.0.0",
+  "description": "loggerservice is used to log data in DB. it uses kafka node.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "deepak poojari",
+  "license": "ISC",
+  "dependencies": {
+    "@builtioflow/models": "0.0.57",
+    "kafka-node": "2.5.0",
+    "mongoose": "4.13.9",
+    "node-rdkafka": "2.2.2"
+  }
+}
