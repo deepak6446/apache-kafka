@@ -1,0 +1,36 @@
+{
+    "apps": [
+        {
+            "name": "consumer1",
+            "script": "../deepakWork/kafkaDemo/consumer.js"
+        },
+        {
+            "name": "consumer2",
+            "script": "../deepakWork/kafkaDemo/consumer.js"
+        },
+        {
+            "name": "consumer3",
+            "script": "../deepakWork/kafkaDemo/consumer.js"
+        },
+        {
+            "name": "consumer4",
+            "script":"../deepakWork/kafkaDemo/consumer.js"
+        },
+        {
+            "name": "consumer5",
+            "script":"../deepakWork/kafkaDemo/consumer.js"
+        },
+        {
+            "name": "consumer6",
+            "script":"../deepakWork/kafkaDemo/consumer.js"
+        },
+        {
+            "name": "consumer7",
+            "script": "../deepakWork/kafkaDemo/consumer.js"
+        },
+        {
+            "name": "consumer8",
+            "script": "../deepakWork/kafkaDemo/consumer.js"
+        }
+    ]
+}
