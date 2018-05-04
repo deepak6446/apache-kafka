@@ -17,6 +17,7 @@ const client = new kafka.Client(global.config.zhookeeper, "my-client-id", {
     spinDelay: 100,
     retries: 2
 });
+
 const producer = new kafka.HighLevelProducer(client);
 
 producer.on("ready", () => {
@@ -26,7 +27,7 @@ producer.on("ready", () => {
 producer.on("error", (error) => {
     console.error('error: ', error);
 });
-
+let i=0
 const KafkaService = {
     sendRecord: (logs) => {
         if (!Object.keys(logs).length) {
@@ -45,8 +46,9 @@ const KafkaService = {
         ];
 
         //Send record to Kafka 
-        producer.send(record, (data) => {
-            console.log('data send :' + data);
+        producer.send(record, (error) => {
+            let timeDiffrence = global.stopTime - global.startTime;
+            console.log('data send :' + error+' time taken:' + timeDiffrence+' to send:'+i++);
         });
 
         producer.on('error', (err) => {
@@ -54,9 +56,6 @@ const KafkaService = {
         })
     }
 };
-let i=0
-setInterval(()=>{
-    KafkaService.sendRecord(i++);
-},500)
 
 exports.KafkaService = KafkaService;
+exports.client = client;

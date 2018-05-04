@@ -33,14 +33,23 @@ var consumer = new kafka.ConsumerGroup(options, global.config.topic);
 consumer.on("ready", async (message) => {
     console.log('I am ready bring it on !!!!!!', message)
 });
+consumer.on("rebalanced", async () => {
+    console.log(`consumer rebalanced !!!! at ${Date.now().toString()} kafkaUrl ${options.kafkaHost}`);
+});
 
+consumer.on("rebalancing", async () => {
+    console.log('consumer rebalancing......');
+});
 consumer.on("error", async (message) => {
     console.log('error in consumer', message)
 });
 
+global.totalMess = 0
+global.startTime = Date.now()
 consumer.on("message", async (message) => {
     // Read string into a buffer.
-    console.log('got message:'+JSON.stringify(message.value));
+    global.diffTime = (Date.now() - global.startTime)/1000
+    console.log('got message:'+JSON.stringify(message.value)+'total time'+global.diffTime+'total:'+global.totalMess++);
 });
 
 consumer.on("error", async (err) => {
