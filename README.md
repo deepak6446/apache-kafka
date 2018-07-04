@@ -7,7 +7,7 @@
 ### Step 2: Start the server
 * bin/zookeeper-server-start.sh config/zookeeper.properties
 * bin/kafka-server-start.sh config/server.properties
-
+...
 ### Step 3: Install dependencies 
 npm i
 
