@@ -12,30 +12,33 @@ let client = require('./producer').client
 let logs = {
         message: "kafa is amazing"
     }
-
+let count = 0
 // setInterval(()=>{
 //     KafkaService.sendRecord(logs);
 // }, 2000)
 
+//update metadata when the producer is initialized bu calling refreshMetadata before sending first message
 client.refreshMetadata([global.config.topic], (err) => {
     if (err) {
         console.log('Error refreshing kafka metadata', err);
     } else {
         console.log('metadata found')
-        setTimeout(() => {
+        // setTimeout(() => {
             global.startTime = Date.now();
             let s = setInterval(() => {
-                for (let index = 0; index < 2400; index++) {
+                for (let index = 0; index < 1; index++) {
+                    logs.startTime = Date.now();
+                    logs.count = count++    
                     KafkaService.sendRecord(logs);
                 }
                 global.stopTime = Date.now();
-            }, 2)
+            }, 1);
             //15 millisecond
             setTimeout(() => {
                 clearInterval(s);
-                // setTimeout(() => { process.exit(0) }, 6*1000);
-            }, 15 * 1000);
-        }, 500);
+                // process.exit(0);
+            }, 100);
+        // }, 500);
     }    
 });
 

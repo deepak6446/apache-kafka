@@ -13,7 +13,7 @@ catch (e) {
 var options = {
     kafkaHost: global.config.brokerUrl, // connect directly to kafka broker (instantiates a KafkaClient)
     ssl: true, // optional (defaults to false) or tls options hash
-    groupId: global.config.groupId,
+    // groupId: global.config.groupId,
     sessionTimeout: 15000,  //session is restarted after every 15 seconds
     // An array of partition assignment protocols ordered by preference.
     // 'roundrobin' or 'range' string for built ins (see below to pass in custom assignment protocol)
@@ -48,8 +48,10 @@ global.totalMess = 0
 global.startTime = Date.now()
 consumer.on("message", async (message) => {
     // Read string into a buffer.
-    global.diffTime = (Date.now() - global.startTime)/1000
-    console.log('got message:'+JSON.stringify(message.value)+'total time'+global.diffTime+'total:'+global.totalMess++);
+    message = JSON.parse(message.value)
+    console.log('--------count', message.count, 'start', message.startTime, 'now', Date.now(), 'timediff', (Date.now() - message.startTime) );
+    // global.diffTime = (Date.now() - global.startTime)/1000
+    // console.log('got message:'+JSON.stringify(message.value)+'total time'+global.diffTime+'total:'+global.totalMess++);
 });
 
 consumer.on("error", async (err) => {

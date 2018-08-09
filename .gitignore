@@ -1,2 +1,7 @@
 # Dependencies
 node_modules/
+
+#ignore auth files 
+ca.pem
+service.cert
+service.key

@@ -8,12 +8,11 @@ catch (e) {
 }
 
 var kafka = require("kafka-node")
-var uuid = require("uuid")
 global.config = require('./env/local.json');
 
 const client = new kafka.Client(global.config.zhookeeper, "my-client-id", {
     groupId: global.config.groupId,
-    sessionTimeout: 300,
+    sessionTimeout: 600,
     spinDelay: 100,
     retries: 2
 });
@@ -25,28 +24,28 @@ producer.on("ready", () => {
 });
 
 producer.on("error", (error) => {
-    console.error('error: ', error);
+    console.error('error in connection : ', error);
 });
 let i=0
 const KafkaService = {
     sendRecord: (logs) => {
         if (!Object.keys(logs).length) {
             console.log('log must not be empty.');
+            return
         }
 
         const buffer = new Buffer.from(JSON.stringify(logs));
-
         // Create a new payload
         const record = [
             {
-                topic: global.config.topic,
+                topic: global.config.topic,   //which topic to send record
                 messages: buffer,
-                attributes: 1 /* Use GZip compression for the payload */
+                attributes: 1 /* 1 = Use GZip compression for the payload */
             }
         ];
 
         //Send record to Kafka 
-        producer.send(record, (error) => {
+        producer.send(record, (error) => {           
             let timeDiffrence = global.stopTime - global.startTime;
             console.log('data send :' + error+' time taken:' + timeDiffrence+' to send:'+i++);
         });
